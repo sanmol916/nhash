@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ñHASH — an alien café landed in Kamala Nagar. Otherworldly coffee, food & vibes." />
+  <title>ñHASH — Alien Café · Kamala Nagar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Custom cursor glow -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- Animated background layers -->
+  <div class="bg-layer" aria-hidden="true">
+    <canvas id="starfield"></canvas>
+    <div class="grid-floor"></div>
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+  </div>
+
+  <!-- Scroll progress beam -->
+  <div class="scroll-beam" id="scrollBeam" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <header class="nav" id="nav">
+    <a href="#home" class="nav__brand" aria-label="ñHASH home">
+      <span class="nav__logo glitch" data-text="ñHASH">ñHASH</span>
+    </a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#about">Origin</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Sightings</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero__ufo" aria-hidden="true">
+        <div class="ufo">
+          <div class="ufo__dome"></div>
+          <div class="ufo__body"></div>
+          <div class="ufo__beam"></div>
+          <div class="ufo__lights">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__content">
+        <p class="hero__eyebrow">— transmission received · Kamala Nagar —</p>
+        <h1 class="hero__title glitch" data-text="ñHASH">ñHASH</h1>
+        <p class="hero__tagline">The café that landed from another galaxy.<br />Brewed in orbit. Served on Earth.</p>
+        <div class="hero__cta">
+          <a href="#menu" class="btn btn--primary">Decode the Menu</a>
+          <a href="#visit" class="btn btn--ghost">Find the Landing Site</a>
+        </div>
+      </div>
+
+      <a href="#about" class="hero__scroll" aria-label="Scroll down">
+        <span class="hero__scroll-text">scroll to explore</span>
+        <span class="hero__scroll-line"></span>
+      </a>
+    </section>
+
+    <!-- ABOUT / ORIGIN -->
+    <section class="section origin" id="about">
+      <div class="section__head reveal">
+        <span class="section__tag">01 — Origin Story</span>
+        <h2 class="section__title">We came in peace.<br /><span class="accent">And with caffeine.</span></h2>
+      </div>
+      <div class="origin__grid">
+        <div class="origin__text reveal">
+          <p>
+            Somewhere between a dying star and a very good espresso, <strong>ñHASH</strong> was born.
+            We crash-landed in the heart of <strong>Kamala Nagar</strong> with one mission: to fuse
+            intergalactic flavour with earthly comfort.
+          </p>
+          <p>
+            Every cup is engineered in our onboard lab. Every plate is a small act of alien
+            hospitality. No probes. No abductions. Just really, really good food and a room that
+            hums at a friendlier frequency.
+          </p>
+          <ul class="origin__stats">
+            <li><strong>4.9★</strong><span>Human ratings</span></li>
+            <li><strong>∞</strong><span>Light-years travelled</span></li>
+            <li><strong>100%</strong><span>Alien-roasted beans</span></li>
+          </ul>
+        </div>
+        <div class="origin__visual reveal">
+          <div class="specimen">
+            <div class="img-placeholder">
+              <span class="img-placeholder__label">specimen&nbsp;#001 — the interior</span>
+            </div>
+            <div class="specimen__scan"></div>
+            <div class="specimen__corner specimen__corner--tl"></div>
+            <div class="specimen__corner specimen__corner--tr"></div>
+            <div class="specimen__corner specimen__corner--bl"></div>
+            <div class="specimen__corner specimen__corner--br"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="section menu" id="menu">
+      <div class="section__head reveal">
+        <span class="section__tag">02 — The Menu</span>
+        <h2 class="section__title">Fuel from<br /><span class="accent">beyond the stars</span></h2>
+        <p class="section__sub">Hover a specimen to run a full scan. Every dish is field-tested and human-safe.</p>
+      </div>
+
+      <div class="menu__filters reveal" id="menuFilters">
+        <button class="chip is-active" data-filter="all">All</button>
+        <button class="chip" data-filter="brew">Cosmic Brews</button>
+        <button class="chip" data-filter="bite">Meteor Bites</button>
+        <button class="chip" data-filter="sweet">Nebula Sweets</button>
+      </div>
+
+      <div class="menu__grid" id="menuGrid">
+        <!-- cards injected by JS -->
+      </div>
+    </section>
+
+    <!-- GALLERY / SIGHTINGS -->
+    <section class="section gallery" id="gallery">
+      <div class="section__head reveal">
+        <span class="section__tag">03 — Sightings</span>
+        <h2 class="section__title">Caught on the<br /><span class="accent">cosmic feed</span></h2>
+      </div>
+      <div class="gallery__grid">
+        <figure class="tile tile--tall reveal">
+          <div class="img-placeholder"><span class="img-placeholder__label">sighting 01</span></div>
+          <figcaption>The Landing Bay</figcaption>
+        </figure>
+        <figure class="tile reveal">
+          <div class="img-placeholder"><span class="img-placeholder__label">sighting 02</span></div>
+          <figcaption>Zero-G Latte</figcaption>
+        </figure>
+        <figure class="tile reveal">
+          <div class="img-placeholder"><span class="img-placeholder__label">sighting 03</span></div>
+          <figcaption>Neon Booth</figcaption>
+        </figure>
+        <figure class="tile tile--wide reveal">
+          <div class="img-placeholder"><span class="img-placeholder__label">sighting 04</span></div>
+          <figcaption>Friday Frequencies</figcaption>
+        </figure>
+        <figure class="tile reveal">
+          <div class="img-placeholder"><span class="img-placeholder__label">sighting 05</span></div>
+          <figcaption>The Brew Lab</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- VISIT / CONTACT (no online booking) -->
+    <section class="section visit" id="visit">
+      <div class="section__head reveal">
+        <span class="section__tag">04 — Visit the Landing Site</span>
+        <h2 class="section__title">Find us in<br /><span class="accent">Kamala Nagar</span></h2>
+      </div>
+      <div class="visit__grid">
+        <div class="visit__card reveal">
+          <div class="visit__row">
+            <span class="visit__k">Coordinates</span>
+            <span class="visit__v">Kamala Nagar, Delhi — 110007<br />Near the Main Market, Ground Floor</span>
+          </div>
+          <div class="visit__row">
+            <span class="visit__k">Earth Hours</span>
+            <span class="visit__v">Mon – Sun · 9:00 AM – 11:30 PM</span>
+          </div>
+          <div class="visit__row">
+            <span class="visit__k">Signal (Phone)</span>
+            <span class="visit__v"><a href="tel:+911100000000">+91 11 0000 0000</a></span>
+          </div>
+          <div class="visit__row">
+            <span class="visit__k">Transmit (Email)</span>
+            <span class="visit__v"><a href="mailto:hello@nhash.cafe">hello@nhash.cafe</a></span>
+          </div>
+          <div class="visit__social">
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="Zomato">Zomato</a>
+            <a href="#" aria-label="Maps">Google Maps</a>
+          </div>
+          <p class="visit__note">Walk-ins only — no online booking. Just land whenever. 🛸</p>
+        </div>
+        <div class="visit__map reveal">
+          <div class="img-placeholder img-placeholder--map">
+            <span class="img-placeholder__label">map placeholder — drop the landing site</span>
+          </div>
+          <div class="visit__pin"><span></span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__top">
+      <span class="footer__logo glitch" data-text="ñHASH">ñHASH</span>
+      <p class="footer__line">Alien café · Kamala Nagar · Est. somewhere in deep space</p>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> ñHASH. All frequencies reserved.</span>
+      <span>Built for earthlings with 🛸 &amp; caffeine.</span>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
