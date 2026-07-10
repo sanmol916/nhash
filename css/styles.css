@@ -819,14 +819,25 @@ img { max-width: 100%; display: block; }
 }
 
 /* =========================================================
-   SCROLL REVEAL  (progressive enhancement — only hides when JS is on)
+   REVEAL ENTRANCE
+   Pure CSS — content is ALWAYS visible at the end (fill: both).
+   No JavaScript dependency, so nothing can get stuck hidden.
    ========================================================= */
-.js .reveal {
+.reveal {
+  animation: revealUp 0.8s var(--ease) both;
+}
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* When JS scroll-reveal is active, it takes over the timing via .is-visible */
+.reveal.js-hidden {
+  animation: none;
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(28px);
   transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
 }
-.js .reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal.js-hidden.is-visible { opacity: 1; transform: translateY(0); }
 
 /* =========================================================
    RESPONSIVE
@@ -874,6 +885,7 @@ img { max-width: 100%; display: block; }
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .js .reveal { opacity: 1; transform: none; }
+  .reveal { animation: none; opacity: 1; transform: none; }
+  .reveal.js-hidden { opacity: 1; transform: none; }
   .hero__eyebrow, .hero__title, .hero__tagline, .hero__cta { opacity: 1; }
 }
