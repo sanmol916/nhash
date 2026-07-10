@@ -1,6 +1,6 @@
 /* =========================================================
-   ñHASH — Alien Café · Design System
-   Palette derived from reference: deep black + neon lime
+   ñHASH — Café & Kitchen · Design System (Futuristic)
+   Palette: deep black + neon lime
    ========================================================= */
 
 :root {
@@ -67,7 +67,7 @@ img { max-width: 100%; display: block; }
     var(--bg);
 }
 
-#starfield { position: absolute; inset: 0; width: 100%; height: 100%; }
+#particles { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 .grid-floor {
   position: absolute;
@@ -285,7 +285,7 @@ img { max-width: 100%; display: block; }
 }
 .hero__tagline {
   margin: 26px auto 40px;
-  max-width: 520px;
+  max-width: 560px;
   font-size: clamp(1rem, 2.4vw, 1.25rem);
   color: var(--ink-dim);
   opacity: 0;
@@ -331,75 +331,44 @@ img { max-width: 100%; display: block; }
   50%      { transform: scaleY(1); opacity: 1; transform-origin: top; }
 }
 
-/* ---------- UFO ---------- */
-.hero__ufo {
-  position: absolute;
-  top: 12%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 0;
-  pointer-events: none;
-}
-.ufo {
+/* =========================================================
+   MARQUEE
+   ========================================================= */
+.marquee {
   position: relative;
-  width: 220px;
-  animation: hover 6s ease-in-out infinite;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: rgba(199, 242, 39, 0.03);
+  padding: 18px 0;
 }
-@keyframes hover {
-  0%, 100% { transform: translateY(0) rotate(-1deg); }
-  50%      { transform: translateY(-18px) rotate(1deg); }
+.marquee__track {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  white-space: nowrap;
+  animation: marquee 24s linear infinite;
 }
-.ufo__body {
-  width: 220px; height: 60px;
-  background: linear-gradient(180deg, #1a2416, #0b120a);
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  box-shadow: 0 0 40px rgba(199,242,39,0.15);
+.marquee__track span {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: clamp(1.4rem, 4vw, 2.4rem);
+  letter-spacing: 1px;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--lime-soft);
+  text-stroke: 1px var(--lime-soft);
 }
-.ufo__dome {
-  position: absolute;
-  top: -34px; left: 50%;
-  transform: translateX(-50%);
-  width: 100px; height: 60px;
-  background: radial-gradient(circle at 50% 20%, rgba(199,242,39,0.35), rgba(20,30,15,0.9));
-  border: 1px solid var(--line);
-  border-radius: 100px 100px 0 0;
+.marquee__track span:nth-child(3n+1) {
+  color: var(--lime);
+  -webkit-text-stroke: 0;
+  text-stroke: 0;
+  text-shadow: 0 0 24px var(--lime-glow);
 }
-.ufo__lights {
-  position: absolute;
-  bottom: 12px; left: 0; right: 0;
-  display: flex;
-  justify-content: space-evenly;
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
-.ufo__lights span {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--lime);
-  box-shadow: 0 0 10px var(--lime-glow);
-  animation: blink 1.4s infinite;
-}
-.ufo__lights span:nth-child(2) { animation-delay: 0.2s; }
-.ufo__lights span:nth-child(3) { animation-delay: 0.4s; }
-.ufo__lights span:nth-child(4) { animation-delay: 0.6s; }
-.ufo__lights span:nth-child(5) { animation-delay: 0.8s; }
-@keyframes blink {
-  0%, 100% { opacity: 0.3; }
-  50%      { opacity: 1; }
-}
-.ufo__beam {
-  position: absolute;
-  bottom: -180px; left: 50%;
-  transform: translateX(-50%);
-  width: 30px; height: 200px;
-  background: linear-gradient(to bottom, rgba(199,242,39,0.35), transparent);
-  clip-path: polygon(35% 0, 65% 0, 100% 100%, 0 100%);
-  filter: blur(2px);
-  animation: beamPulse 3s ease-in-out infinite;
-}
-@keyframes beamPulse {
-  0%, 100% { opacity: 0.25; }
-  50%      { opacity: 0.6; }
-}
+.marquee:hover .marquee__track { animation-play-state: paused; }
 
 /* =========================================================
    SECTIONS (shared)
@@ -441,7 +410,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* =========================================================
-   ORIGIN
+   ABOUT
    ========================================================= */
 .origin__grid {
   display: grid;
@@ -466,7 +435,7 @@ img { max-width: 100%; display: block; }
 }
 .origin__stats span { font-size: 0.82rem; color: var(--ink-dim); }
 
-/* Specimen card (image placeholder w/ HUD) */
+/* Photo card (image placeholder w/ HUD frame) */
 .specimen {
   position: relative;
   aspect-ratio: 4 / 5;
@@ -514,13 +483,14 @@ img { max-width: 100%; display: block; }
   position: absolute;
   width: 70px; height: 70px;
   border: 2px dashed rgba(199,242,39,0.4);
-  border-radius: 50%;
+  border-radius: 12px;
   opacity: 0.6;
 }
 .img-placeholder::after {
-  content: "🛸";
+  content: "◨";
   position: absolute;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
+  color: var(--lime);
   filter: drop-shadow(0 0 10px var(--lime-glow));
 }
 .img-placeholder__label {
@@ -571,8 +541,14 @@ img { max-width: 100%; display: block; }
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 26px;
 }
+.menu__fallback {
+  grid-column: 1 / -1;
+  color: var(--ink-dim);
+  font-family: var(--f-mono);
+  font-size: 0.9rem;
+}
 
-/* --- Unique animated menu card --- */
+/* --- Animated menu card --- */
 .mcard {
   position: relative;
   border-radius: var(--radius);
@@ -786,7 +762,7 @@ img { max-width: 100%; display: block; }
   border: 1px solid var(--line);
   min-height: 340px;
 }
-.img-placeholder--map::after { content: "📍"; }
+.img-placeholder--map::after { content: "◎"; }
 .visit__pin {
   position: absolute;
   top: 50%; left: 50%;
@@ -843,38 +819,14 @@ img { max-width: 100%; display: block; }
 }
 
 /* =========================================================
-   GLITCH TEXT EFFECT
+   SCROLL REVEAL  (progressive enhancement — only hides when JS is on)
    ========================================================= */
-.glitch { position: relative; display: inline-block; }
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0; top: 0;
-  width: 100%;
-  opacity: 0.85;
-  pointer-events: none;
-}
-.glitch::before { color: #46e0c0; z-index: -1; }
-.glitch::after  { color: #e04688; z-index: -1; }
-.glitch:hover::before { animation: glitchTop 0.4s steps(2) infinite; }
-.glitch:hover::after  { animation: glitchBot 0.4s steps(2) infinite; }
-@keyframes glitchTop {
-  0% { transform: translate(0,0); } 50% { transform: translate(-3px,-2px); } 100% { transform: translate(2px,1px); }
-}
-@keyframes glitchBot {
-  0% { transform: translate(0,0); } 50% { transform: translate(3px,2px); } 100% { transform: translate(-2px,-1px); }
-}
-
-/* =========================================================
-   SCROLL REVEAL
-   ========================================================= */
-.reveal {
+.js .reveal {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
 }
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.js .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 /* =========================================================
    RESPONSIVE
@@ -922,5 +874,6 @@ img { max-width: 100%; display: block; }
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal { opacity: 1; transform: none; }
+  .js .reveal { opacity: 1; transform: none; }
+  .hero__eyebrow, .hero__title, .hero__tagline, .hero__cta { opacity: 1; }
 }

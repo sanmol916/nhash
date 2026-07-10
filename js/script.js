@@ -1,60 +1,106 @@
 /* =========================================================
-   ñHASH — Alien Café · Interactions
+   ñHASH — Café & Kitchen · Interactions
    ========================================================= */
 (function () {
   "use strict";
 
+  /* Mark JS as available FIRST so reveal animations can hide-then-show.
+     Without this class, all content stays visible (no-JS fallback). */
+  document.documentElement.classList.add("js");
+
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------------------------------------------------------
-     MENU DATA — edit prices / items freely
-     category: brew | bite | sweet
+     MENU DATA — edit names / prices / items freely
+     category: momos | burgers | coffee | desserts
   --------------------------------------------------------- */
   const MENU = [
+    /* ---- MOMOS ---- */
     {
-      cat: "brew", tag: "signature", name: "Zero-G Latte", price: "₹280",
-      desc: "Espresso suspended in silky orbital foam with a whisper of vanilla stardust.",
-      meta: ["Hot / Iced", "Oat option", "Best seller"]
+      cat: "momos", tag: "steamed", name: "Classic Veg Momos", price: "₹120",
+      desc: "Eight juicy hand-folded dumplings stuffed with spiced cabbage & carrot. Served with fiery red chutney.",
+      meta: ["Veg", "8 pcs"]
     },
     {
-      cat: "brew", tag: "cold brew", name: "Green Nebula Cold Brew", price: "₹260",
-      desc: "18-hour steeped cold brew charged with matcha and a lime-mint aura.",
-      meta: ["Iced", "Caffeine ++"]
+      cat: "momos", tag: "fried", name: "Crispy Chicken Momos", price: "₹160",
+      desc: "Golden pan-fried dumplings loaded with juicy minced chicken and a crunchy shell.",
+      meta: ["Non-veg", "8 pcs", "Best seller"]
     },
     {
-      cat: "brew", tag: "house special", name: "Supernova Espresso", price: "₹190",
-      desc: "A dense double shot pulled to a bright, exploding finish. For real earthlings.",
-      meta: ["Hot", "Strong"]
+      cat: "momos", tag: "tandoori", name: "Tandoori Paneer Momos", price: "₹180",
+      desc: "Char-grilled momos tossed in smoky tandoori masala with a cooling mint dip.",
+      meta: ["Veg", "6 pcs"]
     },
     {
-      cat: "bite", tag: "loaded", name: "Meteor Loaded Fries", price: "₹240",
-      desc: "Crater-cut fries buried under molten cheese, jalapeño ash and alien aioli.",
+      cat: "momos", tag: "loaded", name: "Cheese Corn Momos", price: "₹150",
+      desc: "Molten cheese and sweet corn packed into soft steamed pockets. Gooey in every bite.",
+      meta: ["Veg", "8 pcs"]
+    },
+
+    /* ---- BURGERS & FRIES ---- */
+    {
+      cat: "burgers", tag: "signature", name: "ñHASH Veg Burger", price: "₹140",
+      desc: "Crispy potato-veggie patty, fresh lettuce, tomato and house sauce in a toasted bun.",
+      meta: ["Veg", "Filling"]
+    },
+    {
+      cat: "burgers", tag: "grill", name: "Crispy Chicken Burger", price: "₹190",
+      desc: "Fried chicken fillet, melted cheese and smoky mayo stacked tall. A proper handful.",
+      meta: ["Non-veg", "Best seller"]
+    },
+    {
+      cat: "burgers", tag: "peri-peri", name: "Peri-Peri Fries", price: "₹110",
+      desc: "Golden fries dusted with tangy peri-peri seasoning. Crispy outside, fluffy inside.",
       meta: ["Veg", "Shareable"]
     },
     {
-      cat: "bite", tag: "grill", name: "Cosmic Crunch Burger", price: "₹320",
-      desc: "Charred patty, glow-sauce and crisp greens stacked in a charcoal bun.",
-      meta: ["Veg / Non-veg", "Filling"]
+      cat: "burgers", tag: "loaded", name: "Loaded Cheese Fries", price: "₹160",
+      desc: "Fries buried under molten cheese sauce, jalapeños and a drizzle of garlic aioli.",
+      meta: ["Veg", "Shareable"]
+    },
+
+    /* ---- COFFEE & DRINKS ---- */
+    {
+      cat: "coffee", tag: "hot", name: "Cappuccino", price: "₹130",
+      desc: "Double shot of espresso topped with velvety steamed milk and a dusting of cocoa.",
+      meta: ["Hot", "Classic"]
     },
     {
-      cat: "bite", tag: "wood-fired", name: "UFO Flatbread", price: "₹300",
-      desc: "Thin-crust disc topped with pesto, roasted veg and a mozzarella halo.",
-      meta: ["Veg", "Wood-fired"]
+      cat: "coffee", tag: "iced", name: "Cold Coffee", price: "₹150",
+      desc: "Thick, frothy blended cold coffee with a scoop of ice cream. Café favourite.",
+      meta: ["Iced", "Best seller"]
     },
     {
-      cat: "sweet", tag: "signature", name: "Galaxy Cheesecake", price: "₹270",
-      desc: "Swirled blueberry cosmos over a buttery meteorite crust. Chilled to deep-space temps.",
+      cat: "coffee", tag: "iced", name: "Hazelnut Iced Latte", price: "₹170",
+      desc: "Chilled espresso, cold milk and nutty hazelnut syrup over ice.",
+      meta: ["Iced", "Sweet"]
+    },
+    {
+      cat: "coffee", tag: "cold brew", name: "Signature Cold Brew", price: "₹160",
+      desc: "Slow-steeped 18-hour cold brew, smooth and bold. Served black or with milk.",
+      meta: ["Iced", "Strong"]
+    },
+
+    /* ---- SHAKES & DESSERTS ---- */
+    {
+      cat: "desserts", tag: "shake", name: "Oreo Thick Shake", price: "₹180",
+      desc: "Blended Oreo cookies and vanilla ice cream, topped with whipped cream and crumble.",
+      meta: ["Cold", "Best seller"]
+    },
+    {
+      cat: "desserts", tag: "shake", name: "Chocolate Overload Shake", price: "₹190",
+      desc: "Rich chocolate ice cream, brownie chunks and a chocolate drizzle. Pure indulgence.",
+      meta: ["Cold", "Rich"]
+    },
+    {
+      cat: "desserts", tag: "warm", name: "Molten Chocolate Brownie", price: "₹150",
+      desc: "Warm gooey brownie with a scoop of vanilla ice cream and hot chocolate sauce.",
+      meta: ["Warm", "Eggless option"]
+    },
+    {
+      cat: "desserts", tag: "chilled", name: "Blueberry Cheesecake", price: "₹200",
+      desc: "Creamy baked cheesecake on a buttery biscuit base, topped with blueberry compote.",
       meta: ["Chilled", "Eggless"]
-    },
-    {
-      cat: "sweet", tag: "warm", name: "Molten Black Hole", price: "₹250",
-      desc: "Dark chocolate lava cake that collapses into a pool of gooey gravity.",
-      meta: ["Warm", "Rich"]
-    },
-    {
-      cat: "sweet", tag: "frozen", name: "Alien Bloom Gelato", price: "₹210",
-      desc: "House-churned pistachio-lime gelato with an eerie, beautiful green glow.",
-      meta: ["Frozen", "Veg"]
     }
   ];
 
@@ -63,6 +109,7 @@
   --------------------------------------------------------- */
   const grid = document.getElementById("menuGrid");
   if (grid) {
+    grid.innerHTML = "";
     const frag = document.createDocumentFragment();
     MENU.forEach((item, i) => {
       const card = document.createElement("article");
@@ -155,6 +202,16 @@
   }
   observeReveals();
 
+  /* Safety net: if anything is still hidden shortly after load, reveal it. */
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight) el.classList.add("is-visible");
+      });
+    }, 400);
+  });
+
   /* ---------------------------------------------------------
      NAV — sticky state + mobile drawer
   --------------------------------------------------------- */
@@ -206,33 +263,37 @@
   }
 
   /* ---------------------------------------------------------
-     STARFIELD CANVAS
+     FLOATING PARTICLES (subtle, futuristic)
   --------------------------------------------------------- */
-  const canvas = document.getElementById("starfield");
+  const canvas = document.getElementById("particles");
   if (canvas && !prefersReduced) {
     const ctx = canvas.getContext("2d");
-    let stars = [], w, h, raf;
+    let dots = [], w, h, raf;
     function resize() {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
-      const count = Math.min(160, Math.floor((w * h) / 12000));
-      stars = Array.from({ length: count }, () => ({
+      const count = Math.min(90, Math.floor((w * h) / 20000));
+      dots = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
-        z: Math.random() * 1.4 + 0.3,
+        r: Math.random() * 1.6 + 0.4,
+        vy: Math.random() * 0.25 + 0.05,
+        vx: (Math.random() - 0.5) * 0.15,
         tw: Math.random() * Math.PI * 2
       }));
     }
     function draw() {
       ctx.clearRect(0, 0, w, h);
-      for (const s of stars) {
-        s.tw += 0.02;
-        const a = 0.35 + Math.sin(s.tw) * 0.35;
-        s.y += s.z * 0.12;
-        if (s.y > h) { s.y = 0; s.x = Math.random() * w; }
+      for (const d of dots) {
+        d.tw += 0.02;
+        d.y += d.vy;
+        d.x += d.vx;
+        if (d.y > h) { d.y = -4; d.x = Math.random() * w; }
+        if (d.x < -4) d.x = w; else if (d.x > w + 4) d.x = 0;
+        const a = 0.25 + Math.sin(d.tw) * 0.25;
         ctx.beginPath();
-        ctx.arc(s.x, s.y, s.z, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(199,242,39,${a * (s.z / 1.7)})`;
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(199,242,39,${a})`;
         ctx.fill();
       }
       raf = requestAnimationFrame(draw);
